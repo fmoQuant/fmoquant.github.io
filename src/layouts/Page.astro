@@ -1,0 +1,13 @@
+---
+import Base from './Base.astro';
+
+// Used by the Markdown pages through their `layout:` front matter.
+const { frontmatter } = Astro.props;
+---
+
+<Base title={frontmatter.title} description={frontmatter.description}>
+  <article class="prose">
+    <h1>{frontmatter.title}</h1>
+    <slot />
+  </article>
+</Base>

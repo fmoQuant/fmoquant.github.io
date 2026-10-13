@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+
+const modules = import.meta.glob('../posts/*.md', { eager: true }) as Record<string, any>;
+
+const posts = Object.entries(modules)
+  .map(([path, post]) => ({
+    slug: path.split('/').pop()!.replace(/\.md$/, ''),
+    ...post.frontmatter,
+  }))
+  .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+
+const format = (d: string) =>
+  new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+---
+
+<Base title="Blog" description="Posts on portfolio optimisation, risk parity and backtesting.">
+  <h1>Blog</h1>
+  <ul class="post-list">
+    {posts.map((post) => (
+      <li>
+        <a href={`/${post.slug}/`}>{post.title}</a>
+        <p class="meta">{format(post.date)}</p>
+        {post.description && <p>{post.description}</p>}
+      </li>
+    ))}
+  </ul>
+</Base>

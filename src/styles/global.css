@@ -1,0 +1,309 @@
+/* Design notes
+   Paper-like reading column for a mathematician's site: serif text, sans for navigation and tables,
+   a single accent taken from the old WordPress site (#81d742), darkened for text on light backgrounds. */
+
+:root {
+  color-scheme: light dark;
+  --bg: #f7f9fb;
+  --ink: #14202b;
+  --muted: #566574;
+  --rule: #d5dde5;
+  --accent: #2f7a16;
+  --brand: #81d742;
+  --code-bg: #0f1720;
+  --measure: 46rem;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e141a;
+    --ink: #e6edf3;
+    --muted: #9fb0bf;
+    --rule: #26323d;
+    --accent: #81d742;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 1.0625rem/1.65 var(--serif);
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 0.08em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 2px;
+}
+
+img { max-width: 100%; height: auto; }
+
+.wrap {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--bg);
+  color: var(--ink);
+  padding: 0.5rem 1rem;
+  font-family: var(--sans);
+}
+.skip:focus { left: 0; z-index: 10; }
+
+/* Header and navigation */
+
+.site-header { border-bottom: 1px solid var(--rule); }
+
+.site-header .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem 1.5rem;
+  padding-block: 1rem;
+}
+
+.brand {
+  font: 700 1.1rem/1.2 var(--sans);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 3px solid var(--brand);
+}
+
+.site-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  font: 0.95rem/1.4 var(--sans);
+}
+
+.site-nav a {
+  display: inline-block;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav a:hover,
+.site-nav a[aria-current] { border-bottom-color: var(--brand); }
+
+.has-sub { position: relative; }
+
+.sub {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: -0.75rem;
+  min-width: 16rem;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  z-index: 5;
+}
+
+.has-sub:hover > .sub,
+.has-sub:focus-within > .sub { display: flex; }
+
+@media (max-width: 40rem) {
+  .sub {
+    display: flex;
+    position: static;
+    min-width: 0;
+    padding: 0.25rem 0 0 0.75rem;
+    border: 0;
+  }
+}
+
+/* Main column */
+
+main { padding-block: 2.5rem 3rem; }
+
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.25rem;
+}
+
+.prose h2 { font-size: 1.5rem; margin: 2.25rem 0 0.5rem; }
+.prose h3 { font-size: 1.2rem; margin: 1.75rem 0 0.5rem; }
+.prose h4 { font-size: 1.05rem; margin: 1.5rem 0 0.5rem; }
+.prose p { margin: 0 0 1rem; }
+.prose ul, .prose ol { padding-left: 1.25rem; }
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 2rem 0;
+}
+
+.meta {
+  font: 0.9rem/1.4 var(--sans);
+  color: var(--muted);
+  margin: -0.5rem 0 1.5rem;
+}
+
+/* Code */
+
+pre {
+  background: var(--code-bg);
+  color: #e6edf3;
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: 4px;
+  font: 0.85rem/1.5 var(--mono);
+}
+
+code { font-family: var(--mono); font-size: 0.9em; }
+pre code { font-size: inherit; }
+
+/* Tables */
+
+.prose table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 0.5rem 0 1.5rem;
+  font: 0.85rem/1.4 var(--sans);
+  font-variant-numeric: tabular-nums;
+}
+
+.prose th,
+.prose td {
+  padding: 0.4rem 0.6rem;
+  text-align: right;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--rule);
+}
+
+.prose th:first-child,
+.prose td:first-child { text-align: left; }
+
+.prose thead th { border-bottom: 2px solid var(--ink); }
+
+/* Figures taken from the old CFD pages: a thumbnail next to its description */
+
+.media {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 1rem;
+  align-items: start;
+  margin: 1.25rem 0;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.media p { margin: 0 0 0.75rem; }
+.media p:last-child { margin-bottom: 0; }
+
+@media (max-width: 30rem) {
+  .media { grid-template-columns: 1fr; }
+  .media img { max-width: 12rem; }
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.pair img { width: 100%; }
+
+/* Home */
+
+.hero {
+  display: grid;
+  grid-template-columns: 11rem 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.hero img {
+  width: 11rem;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: 50%;
+}
+
+@media (max-width: 36rem) {
+  .hero { grid-template-columns: 1fr; gap: 1.25rem; }
+  .hero img { width: 8rem; }
+}
+
+.role { font-size: 1.25rem; margin: 0 0 1.25rem; }
+
+.facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.3rem 1.25rem;
+  margin: 0 0 1.5rem;
+  font: 0.95rem/1.5 var(--sans);
+}
+
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; }
+
+/* Blog list */
+
+.post-list { list-style: none; margin: 0; padding: 0; }
+
+.post-list li {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.post-list a { font-size: 1.2rem; font-weight: 600; }
+.post-list p { margin: 0.25rem 0 0; }
+
+/* Footer */
+
+.site-footer {
+  border-top: 1px solid var(--rule);
+  padding: 1.25rem 0 2rem;
+  font: 0.85rem/1.5 var(--sans);
+  color: var(--muted);
+}
+
+.site-footer .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+}
+
+.site-footer a { color: var(--muted); }

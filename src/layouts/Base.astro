@@ -1,0 +1,82 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'Quantitative analysis, portfolio optimisation and numerical simulation, by Farid Moussaoui in Geneva.',
+} = Astro.props;
+
+const pathname = Astro.url.pathname;
+const isHome = pathname === '/';
+const fullTitle = isHome ? title : `${title} | Farid Moussaoui`;
+const canonical = new URL(pathname, Astro.site).href;
+const year = new Date().getFullYear();
+
+const galleryPages = [
+  { href: '/computational-finance/', label: 'Computational Finance' },
+  { href: '/computational-fluid-dynamics/', label: 'Computational Fluid Dynamics' },
+  { href: '/again-cfd-computational-fun-dynamics/', label: 'Computational Fun Dynamics' },
+];
+
+const here = (href: string) => pathname === href;
+const inGallery = pathname === '/galley/' || galleryPages.some((p) => here(p.href));
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/wp-content/uploads/2016/10/cropped-fly4.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Farid Moussaoui" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+  </head>
+  <body>
+    <a class="skip" href="#content">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/" aria-current={isHome ? 'page' : undefined}>Farid Moussaoui</a>
+        <nav class="site-nav" aria-label="Main">
+          <ul>
+            <li><a href="/skills/" aria-current={here('/skills/') ? 'page' : undefined}>Skills</a></li>
+            <li><a href="/research/" aria-current={here('/research/') ? 'page' : undefined}>Research</a></li>
+            <li><a href="/blog/" aria-current={pathname.startsWith('/blog/') ? 'page' : undefined}>Blog</a></li>
+            <li class="has-sub">
+              <a href="/galley/" aria-current={inGallery ? 'page' : undefined}>Gallery</a>
+              <ul class="sub">
+                {galleryPages.map((p) => (
+                  <li><a href={p.href} aria-current={here(p.href) ? 'page' : undefined}>{p.label}</a></li>
+                ))}
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="content">
+      <div class="wrap">
+        <slot />
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>&copy; {year} Farid Moussaoui</span>
+        <span>Static site, no cookies, no trackers.</span>
+      </div>
+    </footer>
+  </body>
+</html>
