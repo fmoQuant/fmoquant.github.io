@@ -24,7 +24,7 @@ npm run check        # confirms that every link and file resolves
 npm run dev          # preview at http://localhost:4321
 ```
 
-`npm run assets` copies only the files the pages use into `public/wp-content/uploads/`, so old image URLs keep working.
+`npm run assets` copies only the files the pages use into `public/uploads/`, so old image URLs keep working.
 It leaves out the videos and the 42 MB PDF that sit in your WordPress media library but appear on no page. GitHub rejects files over 100 MB, and one of the videos is 125 MB.
 
 ## Publish on GitHub
@@ -52,7 +52,7 @@ If you use the `github.io` address only (no custom domain) and the repository is
 
 - The Gallery menu page was empty on WordPress. `/galley/` now lists its three sub-pages.
 - The two TablePress tables on `/hf-analysis/` are plain tables.
-- The code download on `/erc_portfolio/` pointed to `/codes/erc_code.zip`; it now points to the copy in the media library, `/wp-content/uploads/erc_code.zip`.
+- The code download on `/erc_portfolio/` pointed to `/codes/erc_code.zip`; it now points to the copy in the media library, `/uploads/erc_code.zip`.
 - A stray closing brace at the end of the R listing in `/rp-solvers/` was removed.
 - The post images use the original files instead of WordPress's 800 px copies.
 - No comments, forms or search existed on the exported content, so nothing dynamic was lost.

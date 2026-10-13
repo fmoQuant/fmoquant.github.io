@@ -6,7 +6,7 @@ description: Matlab code to compute the equal risk contribution (risk parity) po
 
 *I received a lot of messages to distribute my code for computing the equal risk portfolio.*
 
-You can download the code [here](/wp-content/uploads/erc_code.zip).
+You can download the code [here](/uploads/erc_code.zip).
 
 The only trick for the optimisation process is what fitness function to minimise. I followed Roncalli paper and as stated in the [Wilmott forum](https://forum.wilmott.com/viewtopic.php?f=34&t=38497), we should minimise the function defined by in the matlab script "fm_fitnessERC.m". I attached also some Dow Jones data and a script file to test how the code is working.
 

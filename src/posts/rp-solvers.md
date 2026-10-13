@@ -18,9 +18,9 @@ For now, I will show how we can use these tools to backtest a risk parity strate
 
 The back-test was done using monthly re-balancing and compare the data with equal weight portfolio with the the same assets. Here we apply equal risk weights for each asset but the solver can accommodate different risk weights and even long/short portfolios.
 
-![Price history of the ten Ivy portfolio ETFs](/wp-content/uploads/2021/02/Rplot_ivy_prices01.png)
+![Price history of the ten Ivy portfolio ETFs](/uploads/2021/02/Rplot_ivy_prices01.png)
 
-![Performance summary of the equal risk contribution and equal weight strategies](/wp-content/uploads/2021/02/Rplot_ivy_perfs01.png)
+![Performance summary of the equal risk contribution and equal weight strategies](/uploads/2021/02/Rplot_ivy_perfs01.png)
 
 ```r
 # this is done here to just show how to use the package
