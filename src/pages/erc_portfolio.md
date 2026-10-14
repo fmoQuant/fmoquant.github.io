@@ -14,6 +14,6 @@ Please note the parameters used within fmincon to let it converges.
 
 I implemented also the fast solver described in Roncalli's SSRN Sep 2013 [paper](http://www.ssrn.com/abstract=2325255). This reduces the cpu time to less than a second for solving large RP optimisation problems.
 
-please drop me a [message](mailto:mf@mfquant.net) to get the password of the encrypted zipped file (just to know who is interested).
+please drop me a [message](mailto:farid.moussaoui@proton.me) to get the password of the encrypted zipped file (just to know who is interested).
 
 I am also available for consulting services on risk parity allocations and quantitative analysis with coding in matlab, R, C++ or Excel.

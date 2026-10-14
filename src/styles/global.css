@@ -115,7 +115,7 @@ img { max-width: 100%; height: auto; }
 
 .has-sub { position: relative; }
 
-.sub {
+.site-nav .sub {
   display: none;
   position: absolute;
   top: 100%;
@@ -129,11 +129,11 @@ img { max-width: 100%; height: auto; }
   z-index: 5;
 }
 
-.has-sub:hover > .sub,
-.has-sub:focus-within > .sub { display: flex; }
+.site-nav .has-sub:hover > .sub,
+.site-nav .has-sub:focus-within > .sub { display: flex; }
 
 @media (max-width: 40rem) {
-  .sub {
+  .site-nav .sub {
     display: flex;
     position: static;
     min-width: 0;

@@ -41,17 +41,17 @@ for (const f of files) {
   ].map((m) => m[1]);
 
   for (const t of targets) {
-    if (t.startsWith('/wp-content/')) { assets.add(t); continue; }
+    if (t.startsWith('/uploads/')) { assets.add(t); continue; }
     const route = t.endsWith('/') || extname(t) ? t : `${t}/`;
     if (extname(t) || routes.has(route)) continue;
     broken.push(`${f.slice(root.length)}: ${t}`);
   }
-  for (const m of text.matchAll(/(?:src|href)="(\/wp-content\/[^"]+)"|\]\((\/wp-content\/[^)\s]+)\)/g)) assets.add(m[1] ?? m[2]);
+  for (const m of text.matchAll(/(?:src|href)="(\/uploads\/[^"]+)"|\]\((\/uploads\/[^)\s]+)\)/g)) assets.add(m[1] ?? m[2]);
 }
 
 const missing = [...assets].filter((a) => !existsSync(join(root, 'public', a))).sort();
 
-console.log(`${routes.size} routes, ${assets.size} referenced files in /wp-content/`);
+console.log(`${routes.size} routes, ${assets.size} referenced files in /uploads/`);
 if (broken.length) {
   console.error(`\nBroken internal links:\n  ${broken.join('\n  ')}`);
 }

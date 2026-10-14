@@ -1,0 +1,104 @@
+diff --git a/package.json b/package.json
+index bebdda3..2c079a6 100644
+--- a/package.json
++++ b/package.json
+@@ -14,7 +14,6 @@
+     "node": ">=22.12.0"
+   },
+   "dependencies": {
+-    "@astrojs/rss": "^4.0.19",
+     "@astrojs/sitemap": "^3.7.3",
+     "astro": "^7.3.8"
+   }
+diff --git a/scripts/check.mjs b/scripts/check.mjs
+index 8176fb3..69b4427 100644
+--- a/scripts/check.mjs
++++ b/scripts/check.mjs
+@@ -41,17 +41,17 @@ for (const f of files) {
+   ].map((m) => m[1]);
+ 
+   for (const t of targets) {
+-    if (t.startsWith('/wp-content/')) { assets.add(t); continue; }
++    if (t.startsWith('/uploads/')) { assets.add(t); continue; }
+     const route = t.endsWith('/') || extname(t) ? t : `${t}/`;
+     if (extname(t) || routes.has(route)) continue;
+     broken.push(`${f.slice(root.length)}: ${t}`);
+   }
+-  for (const m of text.matchAll(/(?:src|href)="(\/wp-content\/[^"]+)"|\]\((\/wp-content\/[^)\s]+)\)/g)) assets.add(m[1] ?? m[2]);
++  for (const m of text.matchAll(/(?:src|href)="(\/uploads\/[^"]+)"|\]\((\/uploads\/[^)\s]+)\)/g)) assets.add(m[1] ?? m[2]);
+ }
+ 
+ const missing = [...assets].filter((a) => !existsSync(join(root, 'public', a))).sort();
+ 
+-console.log(`${routes.size} routes, ${assets.size} referenced files in /wp-content/`);
++console.log(`${routes.size} routes, ${assets.size} referenced files in /uploads/`);
+ if (broken.length) {
+   console.error(`\nBroken internal links:\n  ${broken.join('\n  ')}`);
+ }
+diff --git a/src/pages/erc_portfolio.md b/src/pages/erc_portfolio.md
+index b0ee253..f1da5b5 100644
+--- a/src/pages/erc_portfolio.md
++++ b/src/pages/erc_portfolio.md
+@@ -14,6 +14,6 @@ Please note the parameters used within fmincon to let it converges.
+ 
+ I implemented also the fast solver described in Roncalli's SSRN Sep 2013 [paper](http://www.ssrn.com/abstract=2325255). This reduces the cpu time to less than a second for solving large RP optimisation problems.
+ 
+-please drop me a [message](mailto:mf@mfquant.net) to get the password of the encrypted zipped file (just to know who is interested).
++please drop me a [message](mailto:farid.moussaoui@proton.me) to get the password of the encrypted zipped file (just to know who is interested).
+ 
+ I am also available for consulting services on risk parity allocations and quantitative analysis with coding in matlab, R, C++ or Excel.
+diff --git a/src/pages/rss.xml.js b/src/pages/rss.xml.js
+deleted file mode 100644
+index b6f142e..0000000
+--- a/src/pages/rss.xml.js
++++ /dev/null
+@@ -1,21 +0,0 @@
+-import rss from '@astrojs/rss';
+-
+-export function GET(context) {
+-  const modules = import.meta.glob('../posts/*.md', { eager: true });
+-
+-  const items = Object.entries(modules)
+-    .map(([path, post]) => ({
+-      title: post.frontmatter.title,
+-      description: post.frontmatter.description ?? '',
+-      pubDate: new Date(post.frontmatter.date),
+-      link: `/${path.split('/').pop().replace(/\.md$/, '')}/`,
+-    }))
+-    .sort((a, b) => b.pubDate.valueOf() - a.pubDate.valueOf());
+-
+-  return rss({
+-    title: 'Farid Moussaoui',
+-    description: 'Quantitative analysis, portfolio optimisation and numerical simulation.',
+-    site: context.site,
+-    items,
+-  });
+-}
+diff --git a/src/styles/global.css b/src/styles/global.css
+index 80c4613..ea06f6e 100644
+--- a/src/styles/global.css
++++ b/src/styles/global.css
+@@ -115,7 +115,7 @@ img { max-width: 100%; height: auto; }
+ 
+ .has-sub { position: relative; }
+ 
+-.sub {
++.site-nav .sub {
+   display: none;
+   position: absolute;
+   top: 100%;
+@@ -129,11 +129,11 @@ img { max-width: 100%; height: auto; }
+   z-index: 5;
+ }
+ 
+-.has-sub:hover > .sub,
+-.has-sub:focus-within > .sub { display: flex; }
++.site-nav .has-sub:hover > .sub,
++.site-nav .has-sub:focus-within > .sub { display: flex; }
+ 
+ @media (max-width: 40rem) {
+-  .sub {
++  .site-nav .sub {
+     display: flex;
+     position: static;
+     min-width: 0;
