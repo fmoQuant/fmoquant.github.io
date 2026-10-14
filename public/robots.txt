@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.mfquant.net/sitemap-index.xml
+Sitemap: https://fmoquant.github.io/sitemap-index.xml

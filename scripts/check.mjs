@@ -56,7 +56,7 @@ if (broken.length) {
   console.error(`\nBroken internal links:\n  ${broken.join('\n  ')}`);
 }
 if (missing.length) {
-  console.warn(`\nMissing from public/ (run "npm run assets"):\n  ${missing.join('\n  ')}`);
+  console.warn(`\nReferenced but missing from public/:\n  ${missing.join('\n  ')}`);
 }
 if (!broken.length && !missing.length) console.log('All links and files check out.');
 process.exit(broken.length ? 1 : 0);

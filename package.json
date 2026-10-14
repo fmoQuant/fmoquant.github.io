@@ -7,7 +7,6 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "assets": "bash scripts/fetch-assets.sh",
     "check": "node scripts/check.mjs"
   },
   "engines": {

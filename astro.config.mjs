@@ -1,9 +1,9 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// The WordPress site used https://www.mfquant.net, so we keep that as the canonical address.
+// The site lives at the GitHub Pages address of the fmoQuant account.
 export default defineConfig({
-  site: 'https://www.mfquant.net',
+  site: 'https://fmoquant.github.io',
   build: { format: 'directory' },
   // Astro 7 trims whitespace between inline elements by default; keep the classic behaviour.
   compressHTML: true,
